@@ -9,10 +9,13 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js",
+    "build:ui": "shx rm -rf dist && cd ../Part1-2 && npm run build && shx cp -r dist ../Part3",
+    "deploy:full": "npm run build:ui && git add . && git commit && git push",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "^5.2.1"
-  },
-  "devDependencies": {}
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "shx": "^0.4.0"
+  }
 }
