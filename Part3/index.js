@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 var morgan = require('morgan')
 const app = express()
 const requestLogger = (request, response, next) => {
@@ -21,6 +22,7 @@ app.use(morgan(function (tokens, req, res) {
   ].join(' ')
 }))
 app.use(requestLogger)
+app.use(express.static('dist'))
 
 let contacts = [
     { 
