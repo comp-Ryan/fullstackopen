@@ -15,7 +15,7 @@ const App = (props) => {
   const notesToShow = showAll
     ? notes
     : notes.filter(note => note.important === true)
-  const [errorMessage, setErrorMessage] = useState('some error happened...')
+  const [errorMessage, setErrorMessage] = useState(null)
 
 
   useEffect(() => {
