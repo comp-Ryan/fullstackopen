@@ -75,7 +75,7 @@ const PersonForm = ({newName, newNumber, setNewName, setNewNumber, persons, setP
         setNewName('')
         setNewNumber('')
       })
-  }
+  } 
 
   return(
     <form onSubmit={addName}>
