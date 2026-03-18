@@ -71,7 +71,7 @@ app.post('/api/persons', (request, response, next) => {
                 })
 
                 contact.save().then(savedContact => {
-                    response.json(savedContact)
+                    response.json(savedContact).catch(error => next(error))
                 })
             }
         })
