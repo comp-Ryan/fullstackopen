@@ -20,18 +20,18 @@ const PersonForm = ({newName, newNumber, setNewName, setNewNumber, persons, setP
     const nameObject = {
       name: newName,
       number: newNumber,
-      id: newName,
     }
 
-    if (persons.some(person => person.id === newName)) {
+    if (persons.some(person => person.name === newName)) {
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
-        peopleService.update(newName, nameObject).then(response => {
-          console.log(response)
-          setPersons(persons.map(person => person.id === newName ? response : person))
+        peopleService.update((persons.find(person => person.name === newName).id), nameObject).then(response => {
+          setPersons(persons.map(person => person.name === newName ? response : person))
           setNotificationStatus(true)
+          setNotificationType('success')
           setMessage('Updated')
           setNotificationName(newName)
           setTimeout(() => {
+            setNotificationType('')
             setNotificationStatus(false)
             setNotificationName('')
             setMessage('')
@@ -41,7 +41,7 @@ const PersonForm = ({newName, newNumber, setNewName, setNewNumber, persons, setP
         })
         .catch(error => {
           setMessage(
-            `Information of ${persons.find(p => p.id == newName).name} has already been removed from server`
+            `Information of ${persons.find(p => p.name == newName).name} has already been removed from server`
           )
           setNotificationStatus(true)
           setNotificationType('error')
@@ -51,7 +51,7 @@ const PersonForm = ({newName, newNumber, setNewName, setNewNumber, persons, setP
             setMessage('')
             setNotificationType('')
           }, 2000)
-          setPersons(persons.filter(p => p.id !== newName))
+          setPersons(persons.filter(p => p.name !== newName))
         })
         return
       } else {
@@ -94,15 +94,15 @@ const PersonForm = ({newName, newNumber, setNewName, setNewNumber, persons, setP
 
 const Persons = ({filtering, persons, setPersons, setMessage, setNotificationStatus, setNotificationName, setNotificationType}) => {
   const namesToShow = (filtering == '') ? persons : persons.filter(person => person.name.toLowerCase().includes(filtering.toLowerCase()))
-  const Delete = id => {
-    if (window.confirm(`Delete ${persons.find(p=>p.id == id).name}`)) {
+  const Delete = name => {
+    if (window.confirm(`Delete ${persons.find(p=>p.name == name).name}`)) {
       peopleService
-      .Delete(id).then(response =>
-        {setPersons(persons.filter(person => person.id != id))}
+      .Delete((persons.find(person => person.name === name).id)).then(response =>
+        {setPersons(persons.filter(person => person.name != name))}
       )
       .catch(error => {
         setMessage(
-          `Information of ${persons.find(p => p.id == id).name} has already been removed from server`
+          `Information of ${persons.find(p => p.name == name).name} has already been removed from server`
         )
         setNotificationStatus(true)
         setNotificationType('error')
@@ -112,13 +112,13 @@ const Persons = ({filtering, persons, setPersons, setMessage, setNotificationSta
           setMessage('')
           setNotificationType('')
         }, 2000)
-        setPersons(persons.filter(p => p.id !== id))
+        setPersons(persons.filter(p => p.name !== name))
       })
     } 
   }
 
   return(<div>
-    {namesToShow.map((person) => <div key={person.id}>{person.name} {person.number} <button onClick={()=>Delete(person.id)}>Delete</button></div>)}
+    {namesToShow.map((person) => <div key={person.name}>{person.name} {person.number} <button onClick={()=>Delete(person.name)}>Delete</button></div>)}
   </div>)
 }
 
