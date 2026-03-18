@@ -8,7 +8,7 @@ const requestLogger = (request, response, next) => {
   console.log('---')
   next()
 }
-const Contact = require('./models/Contact')
+const Contact = require('./models/contact')
 
 app.use(express.json())
 app.use(morgan(function (tokens, req, res) {
