@@ -74,7 +74,17 @@ const PersonForm = ({newName, newNumber, setNewName, setNewNumber, persons, setP
         }, 2000)
         setNewName('')
         setNewNumber('')
-      })
+      }).catch(error => {
+        setMessage(String(error.response.data.error))
+        setNotificationStatus(true)
+        setNotificationType('error')
+        setTimeout(() => {
+            setNotificationStatus(false)
+            setNotificationName('')
+            setMessage('')
+            setNotificationType('')
+        }, 2000)
+    })
   } 
 
   return(
