@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js",
+    "lint": "eslint .",
     "build:ui": "shx rm -rf dist && cd ../Part1-2 && npm run build && shx cp -r dist ../Part3",
     "deploy:full": "npm run build:ui && git add . && git commit && git push",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +19,12 @@
     "express": "^5.2.1",
     "mongoose": "^9.3.0",
     "shx": "^0.4.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.0.3",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.4.0"
   }
 }
