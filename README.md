@@ -38,6 +38,8 @@
 
 ## Phonebook (parts 2–3)
 
+<p align="center"><img src="screenshots/phonebook.jpg" alt="The Phonebook app on Render" width="600"></p>
+
 ```mermaid
 flowchart LR
   B[Browser] --> FE[React frontend<br/>built into Part3/dist]
